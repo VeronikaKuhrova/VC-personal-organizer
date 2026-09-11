@@ -1,0 +1,5 @@
+.venv/
+.venv-mcp/
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,12 @@
+[agents]
+enabled = true
+
+[agents.planner]
+description = "Plans and prioritizes tasks in the Personal Organizer."
+config_file = "agents/planner.toml"
+
+[mcp_servers.personal_organizer]
+command = "bash"
+args = ["mcp/run_server.sh"]
+cwd = "."
+required = true
