@@ -1,3 +1,8 @@
+---
+name: task-organizer
+description: Classifies and prioritizes tasks in the Personal Organizer project using low, medium, and high priorities.
+---
+
 # Task Organizer Skill
 
 Use this skill when working with tasks in the Personal Organizer project.

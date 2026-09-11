@@ -1,3 +1,5 @@
+name = "planner"
+description = "Plans and prioritizes tasks in the Personal Organizer."
 sandbox_mode = "read-only"
 
 developer_instructions = """
