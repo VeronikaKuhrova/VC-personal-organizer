@@ -181,3 +181,102 @@ Projekt demonstruje:
 * **Subagent:** vlastní `planner` Subagent
 
 
+## Jak ověřit funkčnost projektu
+
+Po naklonování repozitáře lze jednotlivé části agentního nastavení ověřit následujícím způsobem.
+
+### 1. Spuštění aplikace
+
+```bash
+python3 main.py
+```
+
+### 2. Příprava prostředí pro MCP server
+
+MCP server vyžaduje Python 3.10 nebo novější.
+
+```bash
+python3.12 -m venv .venv-mcp
+.venv-mcp/bin/python -m pip install -r requirements-mcp.txt
+```
+
+### 3. Spuštění Codexu
+
+Codex spusťte v kořenovém adresáři projektu:
+
+```bash
+codex
+```
+
+Při spuštění Codex automaticky načte projektové instrukce z `AGENTS.md`.
+
+### 4. Ověření vlastního Skillu
+
+V Codexu lze Skill explicitně vyvolat například:
+
+```text
+$task-organizer Prioritize these tasks:
+
+- Submit assignment tomorrow
+- Buy coffee
+- Prepare report next week
+
+Do not modify any files.
+```
+
+Codex by měl použít Skill `task-organizer` a doporučit priority podle pravidel definovaných v `.agents/skills/task-organizer/SKILL.md`.
+
+### 5. Ověření Subagenta
+
+```text
+Use the planner subagent to recommend the order for these tasks:
+
+- Submit assignment tomorrow — high
+- Prepare report next week — medium
+- Buy coffee — low
+
+Do not modify any files.
+```
+
+Codex by měl delegovat úkol na Subagenta `planner` definovaného v `.codex/agents/planner.toml`.
+
+### 6. Ověření MCP serveru
+
+V Codexu spusťte:
+
+```text
+/mcp
+```
+
+Mezi dostupnými MCP servery by měl být:
+
+```text
+personal_organizer
+```
+
+se dvěma nástroji:
+
+```text
+list_tasks
+add_task
+```
+
+Čtení úkolů lze ověřit například:
+
+```text
+Use only the personal_organizer MCP server to list my current tasks.
+Do not read tasks.json directly.
+```
+
+Zápis přes MCP lze ověřit:
+
+```text
+Use the personal_organizer MCP server to add this task:
+
+Title: Test MCP
+Priority: high
+
+Do not edit tasks.json directly.
+```
+
+Následným použitím `list_tasks` lze potvrdit, že byl nový úkol prostřednictvím MCP serveru skutečně uložen.
